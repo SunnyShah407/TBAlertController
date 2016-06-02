@@ -336,8 +336,16 @@
 
         if( [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad )
         {
-            UIPopoverPresentationController *popPresentation = [alertController popoverPresentationController];
-            popPresentation.sourceView = self.popoverSourceView ? self.popoverSourceView : viewController.view;
+            UIPopoverPresentationController *popPresentation = [alertController popoverPresentationController];            
+            //popPresentation.sourceView = self.popoverSourceView ? self.popoverSourceView : viewController.view;
+            popPresentation.sourceView =  viewController.view;
+            popPresentation.permittedArrowDirections = 0;
+            
+            CGRect sourceRect = CGRectZero;
+            sourceRect.origin.x = CGRectGetMidX(popPresentation.sourceView.bounds)-popPresentation.sourceView.frame.origin.x/2.0;
+            sourceRect.origin.y = CGRectGetMidY(popPresentation.sourceView.bounds)-popPresentation.sourceView.frame.origin.y/2.0;
+            
+            popPresentation.sourceRect = sourceRect;
         }
 
         [viewController presentViewController:alertController animated:animated completion:completion];
