@@ -274,6 +274,7 @@
     for (UITextField *textField in textFields)
         [self.textFieldInputStrings addObject:textField.text];
 }
+#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)  ([[[UIDevice currentDevice] systemVersion] compare:v options:NSNumericSearch] != NSOrderedAscending)
 
 #pragma mark Displaying (iOS 8)
 
@@ -337,8 +338,11 @@
         if( [UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad )
         {
             UIPopoverPresentationController *popPresentation = [alertController popoverPresentationController];
-            //popPresentation.sourceView = self.popoverSourceView ? self.popoverSourceView : viewController.view;
-            popPresentation.sourceView =  viewController.view;
+
+            if(SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"8.0")){
+                
+                popPresentation.sourceView =  viewController.view;
+            }
             popPresentation.permittedArrowDirections = 0;
             
             CGRect sourceRect = CGRectZero;
